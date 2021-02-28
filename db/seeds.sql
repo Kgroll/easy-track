@@ -1,11 +1,34 @@
-use easytrack.db;
+use easytrack_db;
 
-INSERT INTO department (id, name) VALUES (1, 'Lab');
-INSERT INTO department (id, name) VALUES (5, 'Accounting');
 
-INSERT INTO roles (id, role_title, salary, dept_id) VALUES (10, Manager, 200000, 25);
-INSERT INTO roles (id, role_title, salary, dept_id) VALUES (35, CEO, 150000.25, 1);
+INSERT INTO department
+    (name)
+VALUES
+    ('Sales'),
+    ('Engineering'),
+    ('Finance'),
+    ('Legal');
 
-INSERT INTO employee (id, first_name, last_name, role_id, manager_id) VALUES (20, Joe, Shmoe, 2, 5);
-INSERT INTO employee (id, first_name, last_name, role_id, manager_id) VALUES (500, Jane, Main, 6, 20);
-INSERT INTO employee (id, first_name, last_name, role_id, manager_id) VALUES (60, Doug, Slug, 8, 20);
+INSERT INTO role
+    (title, salary, department_id)
+VALUES
+    ('Sales Lead', 100000, 1),
+    ('Salesperson', 80000, 1),
+    ('Lead Engineer', 150000, 2),
+    ('Software Engineer', 120000, 2),
+    ('Account Manager', 160000, 3),
+    ('Accountant', 125000, 3),
+    ('Legal Team Lead', 250000, 4),
+    ('Lawyer', 190000, 4);
+
+INSERT INTO employee
+    (first_name, last_name, role_id, manager_id)
+VALUES
+    ('John', 'Dunning', 1, NULL),
+    ('Mike', 'Chan', 2, 1),
+    ('Ashley', 'Rodriguez', 3, NULL),
+    ('Kevin', 'Tupik', 4, 3),
+    ('Kunal', 'Singh', 5, NULL),
+    ('Malia', 'Brown', 6, 5),
+    ('Sarah', 'Lourd', 7, NULL),
+    ('Tom', 'Allen', 8, 7);
