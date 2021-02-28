@@ -1,5 +1,4 @@
-//const cTable = require('console.table');
-//console.table('Several objects', [...]);
+
 
 
 const mysql = require('mysql2');
@@ -23,7 +22,8 @@ connection.connect(err => {
 
 afterConnection = () => {
   // Write a simple query that will SELECT everything from the 'products' table
-  connection.query("SELECT * FROM employee", function (err, res) {
+  
+  connection.query("SELECT * FROM department", function (err, res) {
     if(err) throw err;
     console.log(res);
     
