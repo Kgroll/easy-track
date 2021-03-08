@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
 const cTable = require('console.table');
 const express = require('express');
+
 /*
 _____   ___   _____ __   __         _____ ______   ___   _____  _   __
 |  ___| / _ \ /  ___|\ \ / /        |_   _|| ___ \ / _ \ /  __ \| | / /
@@ -133,7 +134,7 @@ const addDepartment = () => {
 });
 };
 
-//  ADD ROLE NEEDS WORK
+//  add role
 const addRole = () => {
   inquirer.prompt([
     {    
@@ -169,7 +170,7 @@ const addRole = () => {
 };             
   
 
-//ADD EMPLOYEE NEEDS WORK
+//add employee
   const addEmployee = () => {
    inquirer.prompt([
   {
@@ -204,20 +205,70 @@ const addRole = () => {
     
     promptUser();
  });
-});
-};   
-const updateEmployee = () => {
- // inquirer.prompt(
-connection.query("SELECT * (first_name, last_name) FROM employee", function(err, res) {
-  if (err) throw err;
-  console.table(res); 
-})
-  
-   
 
-     promptUser();
-}  ;   
-  
+});
+  }
+    
+// Update employee roles
+
+const updateEmployee = function () {
+  let employeeName;
+  let employees;
+  let employeeNames;
+  connection.query(
+    `SELECT e.id, e.first_name, e.last_name, CONCAT(e.first_name, ' ', e.last_name) as full_name, e.role_id, r.title
+    FROM employee e
+    INNER JOIN role r
+      ON e.role_id = r.id`,
+    function (err, res) {
+      if (err) throw err;
+      console.log("res: ", res);
+      employees = res;
+      employeeNames = res.map((employee) => employee.full_name);
+      inquirer
+        .prompt([
+          {
+            name: "employee",
+            type: "list",
+            message: "Which employee would you like to update?",
+            choices: employeeNames,
+          },
+        ])
+        .then(function (response) {
+          let roles = [
+            ...new Set(employees.map((employee) => employee.title)),
+          ].sort();
+          employeeName = response.employee;
+          console.log("employeeName: ", employeeName);
+          inquirer
+            .prompt([
+              {
+                name: "role",
+                type: "list",
+                message: `What role would you like to assign to ${employeeName}?`,
+                choices: roles,
+              },
+            ])
+            .then(function (response) {
+              let employeeRole = employees.find(
+                (employee) => employee.title === response.role
+              );
+              let employeeId = employees.find(employee => employee.full_name === employeeName);
+              console.log("response.role: ", response.role);
+              // create sql statement as a string template literal
+              var sqlQuery = `UPDATE employee SET role_id = ${employeeRole.role_id} WHERE id = ${employeeId.id}`; //this is the sql that is sent to the database
+              console.log("sqlQuery: ", sqlQuery);
+              connection.query(sqlQuery, function (err, res) {
+                //connect to database and pass through the query made above
+                if (err) throw err;
+               // viewAllEmployees();
+                promptUser();
+                console.log( `${employeeName} role is now ${response.role}`);
+              });
+          });
+      });
+  });
+};
 
   app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);
