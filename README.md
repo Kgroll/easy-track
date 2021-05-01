@@ -22,7 +22,7 @@
 
   ## Installation
 
-  To install this application you will first need to clone the code from my GitHub account and paste it into your command-line. You will then need to download node.js and npm init inquirer as these are crucial to the program. Once everything is installed enter npm start in the command line and selec the information you wish to see.
+  To install this application you will first need to clone the code from my GitHub account and paste it into your command-line. You will then need to npm install node.js, inquirer and console.table as these are crucial to the program. Once everything is installed enter node server in the command line and select the information you wish to see.
 
    ## Screenshots
 ![Easytrack1](https://user-images.githubusercontent.com/75186217/115168519-4136b480-a089-11eb-8e4a-ca24a98f502d.jpg)
@@ -37,7 +37,7 @@
 
   ## Video Walkthrough
 
- 
+ https://drive.google.com/file/d/1M0Z80nQDzGxM2yZphxckmd2uaYJw95IN/view
 
   ## Contributions
 
