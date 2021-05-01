@@ -18,7 +18,7 @@
 
   ## Descripition
 
-  This project allows you to 
+  This project allows you to view and manage the departments, roles, and employees in a company in order to organize and plan a business
 
   ## Installation
 
