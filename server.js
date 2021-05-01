@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const consoleT = require('console.table');
+const cTable = require('console.table');
 const express = require('express');
 
 /*
